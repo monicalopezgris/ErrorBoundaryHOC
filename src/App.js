@@ -1,26 +1,28 @@
 import React from 'react';
-import logo from './logo.svg';
+import ErrorBoundary from './components/ErrorBoundary';
+import BuggyComponent from './components/BuggyComponent';
 import './App.css';
 
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div>
+      <p>
+        <b>
+          This is an example of error boundaries in React 16.x
+          <br /><br />
+        </b>
+      </p>
+      <hr />
+      <ErrorBoundary>
+        <p>These components are inside the same error boundary. If one crashes, the error boundary will replace both of them.</p>
+        <BuggyComponent />
+        <BuggyComponent />
+      </ErrorBoundary>
+      <hr />
+      <p>These two counters are each inside of their own error boundary. So if one crashes, the other is not affected.</p>
+      <ErrorBoundary><BuggyComponent /></ErrorBoundary>
+      <ErrorBoundary><BuggyComponent /></ErrorBoundary>
     </div>
   );
 }
-
 export default App;
