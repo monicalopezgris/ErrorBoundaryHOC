@@ -1,24 +1,25 @@
 import React from 'react';
+import ErrorBoundary from './ErrorBoundary';
 
 class BuggyComponent extends React.Component {
   constructor(props) {
     super(props);
-    this.state = { counter: 0 };
+    this.state = { isError: false };
     this.handleClick = this.handleClick.bind(this);
   }
 
   handleClick() {
-    this.setState(({ counter }) => ({
-      counter: counter + 1
-    }));
+    this.setState({
+      isError: true
+    });
   }
 
   render() {
-    if (this.state.counter === 5) {
-      // Simulate an error
+    const { isError } = this.state;
+    if (isError) {
       throw new Error('Opss!');
     }
-    return <button onClick={this.handleClick}>{this.state.counter}</button>;
+    return <button onClick={this.handleClick}>Create error</button>;
   }
 }
-export default BuggyComponent;
+export default ErrorBoundary(BuggyComponent);
